@@ -8,8 +8,7 @@ class Product {
     private $price;
     private $categoryId;
 
-    public function __construct() {
-        global $pdo;
+    public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
@@ -60,7 +59,8 @@ class Product {
         $products = $stmt->fetchAll();
 
         return array_map(function ($data) {
-            $product = new self();
+            $product = new self($this->pdo);
+
             $product->setId($data['id']);
             $product->setName($data['name']);
             $product->setPrice($data['price']);

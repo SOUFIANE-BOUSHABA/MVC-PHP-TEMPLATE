@@ -5,17 +5,23 @@ use App\Models\User;
 
 class AuthController {
 
+    private $pdo;
+
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+
 
     public function login() {
         require __DIR__ . '/../Views/auth/login.php';
     }
 
     public function handleLogin() {
-        global $pdo;
+
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $user = new User();
+        $user = new User($this->pdo);
         if ($user->authenticate($username, $password)) {
             session_start();
             $_SESSION['user'] = $user->getUsername();
@@ -40,9 +46,9 @@ class AuthController {
         }
 
         try {
-            $user = new User();
+            $user = new User($this->pdo);
             $user->register($username, $password);
-            echo "Registration successful. You can now <a href='/'>login</a>.";
+            header('Location: /');
         } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();
         }

@@ -6,8 +6,7 @@ class Category {
     private $id;
     private $name;
 
-    public function __construct() {
-        global $pdo;
+    public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 

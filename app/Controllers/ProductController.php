@@ -6,14 +6,20 @@ use App\Models\Category;
 
 class ProductController {
 
+    private $pdo;
+
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+
     public function index() {
-        $product = new Product();
+        $product = new Product($this->pdo);
         $products = $product->getAll();
         require __DIR__ . '/../Views/product/index.php';
     }
 
     public function create() {
-        $category = new Category();
+        $category = new Category($this->pdo);
         $categories = $category->getAll();
         require __DIR__ . '/../Views/product/create.php';
     }
@@ -23,7 +29,7 @@ class ProductController {
         $price = $_POST['price'];
         $categoryId = $_POST['category_id'];
 
-        $product = new Product();
+        $product = new Product($this->pdo);
         $product->add($name, $price, $categoryId);
         header('Location: /products');
     }

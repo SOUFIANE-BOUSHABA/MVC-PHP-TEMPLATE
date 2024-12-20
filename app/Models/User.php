@@ -7,8 +7,7 @@ class User {
     private $username;
     private $password;
 
-    public function __construct() {
-        global $pdo;
+    public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
@@ -58,7 +57,6 @@ class User {
         }
         return false;
     }
-
 
     public function register($username, $password) {
         $this->setUsername($username);
