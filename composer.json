@@ -1,0 +1,19 @@
+{
+  "name": "soufiane/mvc-project",
+  "description": "A simple MVC PHP application with PostgreSQL and Docker setup.",
+  "type": "project",
+  "require": {
+    "php": "^8.1",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "start": [
+      "docker-compose up -d"
+    ]
+  }
+}
